@@ -1,0 +1,12 @@
+.cn__circle{
+
+}
+
+.cn__ul{
+    display: flex;  
+    list-style: none; 
+}
+.cn__ul li{
+    padding-left: 5px;
+    padding-right: 5px;
+}
