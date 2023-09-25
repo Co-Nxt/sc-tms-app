@@ -1,0 +1,11 @@
+.loading_anim{
+    width: auto;
+    height: 100px;
+}
+
+.loading{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

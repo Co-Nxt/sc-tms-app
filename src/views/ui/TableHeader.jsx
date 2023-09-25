@@ -1,9 +1,9 @@
-function TableHeader({name,count}) {
+function TableHeader({ data }) {
   return (
     <>
       <section className='title__timesheet'>
-        <h5 className='fs-1'>{name}</h5>
-        <h5>Attendances: {count}</h5>
+        <h5 className='fs-1'>{data.name}</h5>
+        <h5>Attendances: {data.count}</h5>
       </section>
     </>
   );

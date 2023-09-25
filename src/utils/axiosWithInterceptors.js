@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem("accessToken"); // Retrieve the access token from local storage
+  const accessToken = sessionStorage.getItem("x-access-token"); // Retrieve the access token from local storage
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }

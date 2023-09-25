@@ -1,20 +1,19 @@
 import { useScheduleData, useUserInfo } from "../../ThemeContext";
 const TableHeaderDetails = () => {
-  const userSchedule = useScheduleData();
-  const userInfo = useUserInfo();
+  const schedule = JSON.parse(sessionStorage.getItem("sc_user_schedule"));
   return (
     <>
       <tr>
         <td> ID</td>
-        <td>{userInfo.username}</td>
+        <td>{schedule.employee_id}</td>
       </tr>
       <tr>
         <td> Working Schedule</td>
-        <td>{userSchedule.workingSchedule}</td>
+        <td>{schedule.workingSchedule}</td>
       </tr>
       <tr>
         <td>Company</td>
-        <td>{userSchedule.department}</td>
+        <td>{schedule.department}</td>
       </tr>
     </>
   );

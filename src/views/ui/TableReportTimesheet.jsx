@@ -1,41 +1,50 @@
 import React from "react";
-import cnxt from "../../cn.dev/cnxt.api";
-import { useQuery } from "react-query";
-import { useUserInfoUpdate } from "../../ThemeContext";
 
-const TableReportTimesheet = () => {
-  const userInfoUpdate = useUserInfoUpdate();
-  const data = [];
+const TableReportTimesheet = ({ timesheet, isLoading, isError }) => {
+  // console.log("timesheet", timesheet.timesheetReport);
+  const [totalWorkHours, setTotalWorkHours] = React.useState(0);
+  const tableRef = React.useRef(null);
 
-  // const { data, isLoading, isError, error } = useQuery(
-  //   "attendances",
-  //   cnxt.fetchAttendances
-  // );
+  React.useEffect(() => {
+    if (timesheet) {
+      const totalHours = timesheet.timesheetReport.reduce(
+        (a, t) => {
+          // console.log("twh", t.workHours.hours);
+          a.actualWorkHours += parseFloat(t.actualWorkHours);
+          a.hours += parseFloat(t.workHours.hours);
+          return a;
+        },
+        {
+          actualWorkHours: 0,
+          hours: 0,
+        }
+      );
+      const roundedTotalHours = {
+        actualWorkHours: totalHours.actualWorkHours.toFixed(1),
+        hours: totalHours.hours.toFixed(2),
+      };
+      setTotalWorkHours(roundedTotalHours);
+      console.log("totalWorkhours", roundedTotalHours);
+    }
+  }, [timesheet]);
 
-  // React.useEffect(() => {
-  //   if (data) {
-  //     userInfoUpdate(data);
-  //   }
-  // }, [data]);
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (isError) {
-  //   return (
-  //     <>
-  //       <div>Error: {isError.message}</div>
-  //       <p>{error.toString()}</p>
-  //     </>
-  //   );
-  // }
-  // if (!data) {
-  //   return <div>No timesheet data available.</div>;
-  // }
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return (
+      <>
+        <div>Error: {isError.message}</div>
+        <p>{isError.toString()}</p>
+      </>
+    );
+  }
+  if (!timesheet || !timesheet.timesheetReport) {
+    return <div>No timesheet data available.</div>;
+  }
   return (
     <>
-      <table className='table table-bordered'>
+      <table ref={tableRef} className='table table-bordered'>
         <tbody>
           <tr>
             <th>DATE</th>
@@ -44,52 +53,38 @@ const TableReportTimesheet = () => {
             <th colSpan='3'>WORKED HOURS</th>
             <th>ACTUAL OT</th>
             <th>ACTUAL WH</th>
-            <th>REMARKS</th>
-          </tr>
-          <tr>
-            <th></th>
-            <th>From</th>
-            <th>To</th>
-            <th></th>
-            <th>From</th>
-            <th>To</th>
-            <th>Hours</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Remarks</th>
           </tr>
 
-          {/* {data.map((report) => {
-            return report.timesheetReport
-              .filter((f) => f.period === showMonth)
-              .map((f) =>
-                f.timesheet.map((t, index) => (
-                  <tr key={index}>
-                    <td>{t.date}</td>
-                    <td>{t.dutyHours.from}</td>
-                    <td>{t.dutyHours.to}</td>
-                    <td>{t.schedHours}</td>
-                    <td>{t.workHours.from}</td>
-                    <td>{t.workHours.to}</td>
-                    <td>{t.workHours.hours}</td>
-                    <td>{t.actualOverTime}</td>
-                    <td>{t.actualWorkHours}</td>
-                    <td>{t.remarks}</td>
-                  </tr>
-                ))
-              );
-          })} */}
+          {timesheet.timesheetReport.map((t, index) => {
+            return (
+              <tr key={index}>
+                <td>{t.date}</td>
+                <td>{t.dutyHours.from}</td>
+                <td>{t.dutyHours.to}</td>
+                <td>{t.actualWorkHours}</td>
+                <td>{t.workHours.from}</td>
+                <td>{t.workHours.to}</td>
+                <td>{t.workHours.hours}</td>
+                <td>{t.actualOverTime}</td>
+                <td>{t.actualWorkHours}</td>
+                <td>{t.remarks}</td>
+              </tr>
+            );
+          })}
 
           <tr>
             <th>Total: </th>
             <th></th>
             <th></th>
-            <th>104.0</th>
+            <th>{totalWorkHours ? totalWorkHours.actualWorkHours : 0}</th>
+            {/*scheduleHours*/}
             <th></th>
             <th> </th>
-            <th>127.52 </th>
-            <th>11.5 </th>
-            <th>88.0</th>
+            <th>{totalWorkHours ? totalWorkHours.hours : 0}</th>{" "}
+            {/* WORKED HOURS*/}
+            <th>11.5 </th> {/* ACTUAL OT*/}
+            <th>88.0</th> {/* ACTUAL WH*/}
             <th></th>
           </tr>
         </tbody>

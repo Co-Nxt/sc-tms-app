@@ -1,12 +1,45 @@
-.cn__circle{
-
-}
-
-.cn__ul{
-    display: flex;  
-    list-style: none; 
-}
-.cn__ul li{
+.cn__userCircle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding-left: 5px;
     padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.cn__profileName{
+    padding-right: 10px;
+}
+.cn__line{
+    background-color: black;
+    height: 25px;
+    width: 1px;
+    margin-left: auto;
+}
+.cn__logout{
+    cursor: pointer;
+    width: 55px;
+}
+
+.cn__logout:hover{
+    background-color: rgb(216, 216, 216);
+}
+.cn__logoBread{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.cn__logo_header{
+    width: auto;
+    height: 40px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.cn__breadcrumbs{
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
 }

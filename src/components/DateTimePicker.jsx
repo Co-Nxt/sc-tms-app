@@ -1,10 +1,8 @@
 import { Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useUpdateFilterDate } from "../ThemeContext";
+import utils from "../utils/helpers.js";
 const DateTimePicker = ({ control, name }) => {
-  const updateDateFilter = useUpdateFilterDate();
-  
   return (
     <Controller
       control={control}
@@ -14,7 +12,7 @@ const DateTimePicker = ({ control, name }) => {
           selected={field.value || new Date()}
           onChange={(date) => {
             field.onChange(date);
-            updateDateFilter(date);
+            sessionStorage.setItem("sc_tms_period", utils.getMonth(date));
           }}
           className='form-control'
           dateFormat='MM/yyyy'

@@ -1,0 +1,48 @@
+.main__login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-image: url('/src/assets/images/bg_tms_login.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+
+    
+}
+.card__login{
+ 
+}
+.login__card{
+    
+}
+
+.login__logo {
+    text-align: center;
+    color: rgb(201, 201, 201);
+    font-size: larger;
+}
+.login__body{
+
+}
+.login__footer{ 
+    position: absolute;
+    top: 95vh;
+    color: rgb(201, 201, 201);
+    font-size: smaller;
+    text-align: center;
+}
+
+.showpass{
+    cursor: pointer;
+}
+.logo{
+    width: auto;
+    height: 60px;
+}
+.logo_title{
+    font-size: x-small;
+}
